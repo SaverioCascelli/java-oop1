@@ -78,7 +78,7 @@ public class Prodotto {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", tax=" + tax +
-                ", totalPrice=" + generateTaxedPrice() +
+                ", totalPrice=" + generateFormattedPrice() +
                 '}';
     }
 
@@ -103,9 +103,14 @@ public class Prodotto {
         return code + "-" + name;
     }
 
-    public String generateTaxedPrice() {
+    public double generateTaxedPrice() {
         double price = this.price;
         double totalPrice = price + price * this.tax;
+        return totalPrice;
+    }
+
+    public String generateFormattedPrice() {
+        double totalPrice = generateTaxedPrice();
         DecimalFormat df = new DecimalFormat("0.00€");
         String formattedTotalPrice = df.format(totalPrice);
         return formattedTotalPrice;
